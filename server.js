@@ -8,7 +8,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/api/chat', async (req, res) => {
   try {
     const { messages, system } = req.body;
-    
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -23,7 +22,6 @@ app.post('/api/chat', async (req, res) => {
         messages
       })
     });
-
     const data = await response.json();
     res.json(data);
   } catch (error) {
