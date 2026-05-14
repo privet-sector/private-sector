@@ -24,7 +24,7 @@ app.post('/api/chat', async (req, res) => {
     });
     const data = await response.json();
     res.json(data);
-  } catch (error) {
+res.status(500).json({ error: error.message, key: process.env.ANTHROPIC_API_KEY ? 'exists' : 'missing' });
     res.status(500).json({ error: error.message });
   }
 });
