@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستشار برنامج القطاع الخاص - أمانة منطقة الرياض</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #0a3d2e;
+    --green-main: #1a6b4a;
+    --green-light: #2d9b6b;
+    --green-pale: #e8f5ef;
+    --gold: #c8a951;
+    --white: #ffffff;
+    --gray-light: #f4f6f5;
+    --gray-mid: #e0e8e4;
+    --text-dark: #0d1f18;
+    --text-mid: #3a5a4a;
+    --text-light: #6b8c7a;
+    --shadow: 0 4px 24px rgba(10,61,46,0.10);
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--gray-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-main) 100%);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  .header-text h1 {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .header-text p {
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  .header-badge {
+    margin-right: auto;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+
+  /* Main layout */
+  .main {
+    display: flex;
+    flex: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 24px 16px;
+    gap: 20px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-title {
+    background: var(--green-pale);
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-dark);
+    border-bottom: 1px solid var(--gray-mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .new-chat-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--green-main), var(--green-light));
+    color: white;
+    border: none;
+    padding: 14px 16px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(26,107,74,0.3);
+    transition: all 0.2s;
+  }
+
+  .new-chat-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(26,107,74,0.4);
+  }
+
+  .chat-history {
+    list-style: none;
+    padding: 8px;
+  }
+
+  .chat-history li {
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .chat-history li:hover, .chat-history li.active {
+    background: var(--green-pale);
+    color: var(--green-dark);
+  }
+
+  .quick-questions {
+    padding: 8px;
+  }
+
+  .quick-q {
+    width: 100%;
+    background: none;
+    border: 1px solid var(--gray-mid);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 12px;
+    color: var(--text-mid);
+    cursor: pointer;
+    text-align: right;
+    margin-bottom: 6px;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+
+  .quick-q:hover {
+    background: var(--green-pale);
+    border-color: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  /* Chat area */
+  .chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* Welcome screen */
+  .welcome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .welcome-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+
+  .welcome h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+
+  .welcome p {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .welcome-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-main), var(--gold));
+    border-radius: 2px;
+    margin: 0 auto 32px;
+  }
+
+  .welcome-stats {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--green-main);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* Chat messages */
+  .chat-window {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .chat-window.active {
+    display: flex;
+  }
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 400px;
+  }
+
+  .msg {
+    display: flex;
+    gap: 12px;
+    max-width: 85%;
+    animation: fadeUp 0.3s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    align-self: flex-start;
+    flex-direction: row-reverse;
+  }
+
+  .msg.assistant {
+    align-self: flex-end;
+  }
+
+  .msg-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .msg.user .msg-avatar {
+    background: var(--green-pale);
+    color: var(--green-dark);
+  }
+
+  .msg.assistant .msg-avatar {
+    background: linear-gradient(135deg, var(--green-main), var(--green-light));
+    color: white;
+  }
+
+  .msg-bubble {
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .msg.user .msg-bubble {
+    background: var(--green-pale);
+    color: var(--text-dark);
+    border-top-right-radius: 4px;
+  }
+
+  .msg.assistant .msg-bubble {
+    background: linear-gradient(135deg, var(--green-dark), var(--green-main));
+    color: white;
+    border-top-left-radius: 4px;
+  }
+
+  .msg.assistant .msg-bubble a {
+    color: var(--gold);
+  }
+
+  .typing {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 6px 0;
+  }
+
+  .typing span {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: bounce 1s infinite;
+  }
+
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Input area */
+  .input-area {
+    padding: 16px 20px;
+    border-top: 1px solid var(--gray-mid);
+    background: var(--white);
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .input-wrapper {
+    flex: 1;
+    background: var(--gray-light);
+    border: 1.5px solid var(--gray-mid);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    transition: border-color 0.2s;
+  }
+
+  .input-wrapper:focus-within {
+    border-color: var(--green-light);
+    background: white;
+  }
+
+  #userInput {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    padding: 14px 0;
+    resize: none;
+    min-height: 48px;
+    max-height: 120px;
+  }
+
+  #userInput::placeholder { color: var(--text-light); }
+
+  .send-btn {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--green-main), var(--green-light));
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(26,107,74,0.3);
+    flex-shrink: 0;
+  }
+
+  .send-btn:hover { transform: scale(1.05); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 12px; }
+    .header { padding: 14px 16px; }
+    .header-logo { width: 48px; height: 48px; }
+    .header-text h1 { font-size: 14px; }
+    .header-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <img src="logo.png" alt="أمانة الرياض" class="header-logo" onerror="this.style.display='none'">
+  <div class="header-text">
+    <h1>مستشار برنامج القطاع الخاص</h1>
+    <p>أمانة منطقة الرياض</p>
+  </div>
+  <div class="header-badge">🟢 متصل</div>
+</header>
+
+<main class="main">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <button class="new-chat-btn" onclick="newChat()">+ محادثة جديدة</button>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">💬 المحادثات</div>
+      <ul class="chat-history" id="chatHistory">
+        <li style="color:var(--text-light); font-size:12px; padding:12px;">لا توجد محادثات سابقة</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">⚡ أسئلة سريعة</div>
+      <div class="quick-questions">
+        <button class="quick-q" onclick="askQuick('كم عدد التحديات الواردة من القطاع الخاص؟')">كم عدد التحديات الواردة؟</button>
+        <button class="quick-q" onclick="askQuick('ما أبرز تحديات الاستثمار مع الأمانة؟')">أبرز تحديات الاستثمار</button>
+        <button class="quick-q" onclick="askQuick('ما التحديات التي تم تنفيذها؟')">التحديات المنفذة</button>
+        <button class="quick-q" onclick="askQuick('ما التحديات المرفوضة وأسبابها؟')">التحديات المرفوضة</button>
+        <button class="quick-q" onclick="askQuick('ما تحديات التحول الرقمي؟')">تحديات التحول الرقمي</button>
+        <button class="quick-q" onclick="askQuick('ما مقترحات ورشة عمل المقاولين؟')">مقترحات المقاولين</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Chat -->
+  <section class="chat-area">
+    <!-- Welcome -->
+    <div class="welcome" id="welcomeScreen">
+      <img src="logo.png" alt="أمانة الرياض" class="welcome-logo" onerror="this.style.display='none'">
+      <h2>مرحباً بك في مستشار برنامج القطاع الخاص</h2>
+      <div class="welcome-divider"></div>
+      <p>أنا هنا لمساعدتك بكل ما يتعلق ببرنامج أمانة منطقة الرياض مع القطاع الخاص — تحديات، مبادرات، حالات التنفيذ، وورش العمل.</p>
+      <div class="welcome-stats">
+        <div class="stat">
+          <div class="stat-num">429</div>
+          <div class="stat-label">مدخل في قاعدة البيانات</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6</div>
+          <div class="stat-label">مصادر بيانات</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2023-2026</div>
+          <div class="stat-label">الفترة الزمنية</div>
+        </div>
+      </div>
+      <button class="new-chat-btn" style="width:auto; padding: 14px 32px;" onclick="newChat()">ابدأ محادثة جديدة +</button>
+    </div>
+
+    <!-- Chat window -->
+    <div class="chat-window" id="chatWindow">
+      <div class="messages" id="messages"></div>
+      <div class="input-area">
+        <div class="input-wrapper">
+          <textarea id="userInput" placeholder="اسأل عن أي تحدٍ أو مبادرة في برنامج القطاع الخاص..." rows="1"
+            onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendMessage(); }"
+            oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px'"></textarea>
+        </div>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+let conversations = [];
+let currentConv = null;
+let isLoading = false;
+
+// Project data for search
+const PROJECT_DATA = [
+  // CONTRACTORS 2024
+  {id:1, text:"صعوبة تواصل المقاولين مع الأمانة لكثرة الإدارات وعدم وجود ضابط اتصال محدد", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
+  {id:2, text:"ضعف التواصل بين إدارة المشاريع مع الجهات الرقابية في الأمانة", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
+  {id:3, text:"إلزام مقاولي الطرق بفتح سجل نقل منفصل عند امتلاك أكثر من 7 معدات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التراخيص"},
+  {id:4, text:"صعوبة في صرف المستحقات الخاصة بالمقاولين وتأخرها لفترات طويلة", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"المالية"},
+  {id:5, text:"شح الأراضي المناسبة داخل الرياض لدعم مشاريع المقاولين", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"الأراضي"},
+  {id:6, text:"محدودية الوقت في أعمال الصيانة من قبل إدارة المرور", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
+  {id:7, text:"إغلاق مكبات النفايات في فترة الليل وهي الفترة الأهم لنقل المخلفات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
+  {id:8, text:"اشتراط ترخيص منفصل لكل رقعة صيانة مما يثقل الإجراءات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التراخيص"},
+  {id:9, text:"صعوبة التواصل مع الجهات الخدمية كهرباء ومياه واتصالات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
+  {id:10, text:"إلزام المشاريع الكبيرة بمنطقة تنظيف للمعدات قبل الخروج", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
+  {id:11, text:"تعدد الجهات المصدرة للمخالفات وإيقاف الرخصة أثناء الاعتراض", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"المخالفات"},
+  {id:12, text:"مخالفات مرورية أثناء الصب بسبب عدم كفاية الوقت الممنوح", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"المخالفات"},
+  {id:13, text:"تقييد أوقات سحب المياه الجوفية مما يعيق التنفيذ", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
+  {id:14, text:"مقترح اجتماع تنفيذي دوري كل 3 أشهر بين الأمانة والمقاولين", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
+  // ENGINEERING OFFICES 2024
+  {id:15, text:"اشتراط موعد مسبق في كل زيارة لمتابعة الطلبات يُعيق عمل المكاتب الهندسية", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"الإجراءات"},
+  {id:16, text:"غياب آلية رسمية لتوثيق الاستثناءات وتحويلها للوائح وفق الأيزو", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"التنظيم"},
+  {id:17, text:"اللوائح غير متاحة بصورة كاملة على موقع الأمانة الإلكتروني", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"الشفافية"},
+  {id:18, text:"فروقات في إجراءات التقارير المساحية بين منصة بلدي وإجراءات الأمانة", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"الإجراءات"},
+  {id:19, text:"غموض تشريعات الأمانة ومعالجتها بإصدار أدلة تفصيلية لجميع أنواع الرخص", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"التشريعات"},
+  {id:20, text:"عمليات تقديم المخططات لا تزال ورقية ويجب التحول الرقمي الكامل", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"التحول الرقمي"},
+  // FIRST MEETING 2023
+  {id:37, text:"الوصول لأنظمة البناء بشكل إلكتروني متاح خدمة إصدار نظام البناء", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"التحول الرقمي"},
+  {id:38, text:"استخدام اللغة العربية فقط لتقديم المخططات والإنجليزية هي لغة البرامج الهندسية", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"الإجراءات"},
+  {id:39, text:"عدم تفعيل الحلول التقنية للاجتماع مع الأمانة عن بعد", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"التواصل"},
+  {id:40, text:"المدة الزمنية طويلة في إجراءات الاشتراطات التخطيطية - تفعيل منصة اعتماد المخططات", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الإجراءات"},
+  {id:41, text:"تأخير الإجراءات والمدة الزمنية لاعتماد مخططات البنية التحتية", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"البنية التحتية"},
+  {id:42, text:"عدم توفر خدمات مصممة للقطاع الخاص من قبل الأمانة عبر تطبيق مدينتي أعمال", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"الخدمات"},
+  {id:43, text:"إتاحة تعديل رقم الجوال المسجل على الموقع الإلكتروني - متاح تعديل بيانات المستفيد", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"التحول الرقمي"},
+  {id:44, text:"عدم وضوح مدة معالجة المعاملة والحالة - متاح حالة الطلب والمرحلة", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الشفافية"},
+  {id:45, text:"غياب تفاصيل فاتورة المخالفة في رسائل SMS - الخدمة متاحة حالياً", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"المخالفات"},
+  {id:46, text:"عدم طرح أراضي كبيرة لمجمعات المخازن - تم طرح 321 فرصة استثمارية", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الاستثمار"},
+  {id:47, text:"عدم وضوح آلية طرح المشاريع الاستثمارية - يتم طرحها ربع سنوي", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الاستثمار"},
+  {id:48, text:"صعوبات القطاع الترفيهي في الحصول على مواقع مناسبة داخل المدينة", source:"غرفة الرياض", year:2025, status:"لم يتم", category:"الترفيه"},
+  {id:49, text:"طرح المنافسات الاستثمارية للنقل - تم البدء بطرح الفرص للقطاع الخاص", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"الاستثمار"},
+  {id:50, text:"تأخر إجراءات الموافقات لإنشاء مشاريع إعادة التدوير", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"البيئة"},
+  {id:51, text:"عدم تمكين المستثمرين من شراء أراضي المرافق التعليمية - يتم التأجير فقط", source:"غرفة الرياض", year:2025, status:"لم يتم", category:"الاستثمار"},
+  {id:52, text:"ضغوط تواجه القطاع الخاص في نموذج الرقابة القائم على المخالفات اجادة", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الرقابة"},
+  {id:53, text:"قُصر مدة الاعتراض على المخالفات - مقترح رفعها إلى 30 يوماً", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"المخالفات"},
+  {id:54, text:"غياب حملات توعوية قبل إصدار المخالفات - تم تنفيذ مبادرات توعوية متعددة", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"الامتثال"},
+  // SPECIALIZED WORKSHOPS 2025
+  {id:76, text:"قلة الوعي قبل طرح الفرص الاستثمارية - الإعلان عبر قنوات التواصل ومنصة فرص", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"جاري العمل", category:"الاستثمار"},
+  {id:77, text:"عدم توفر فرص استثمارية متكاملة جاهزة للتنفيذ وخالية من التعقيدات", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"تم التنفيذ", category:"الاستثمار"},
+  {id:78, text:"غياب نظام وتشريع لإقامة الفعاليات داخل الأحياء السكنية - خارج الاختصاص", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"لم يتم", category:"الفعاليات"},
+  {id:79, text:"محدودية تراخيص سكن العمالة داخل المدينة مما يضطر للسكنات غير النظامية", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"لم يتم", category:"سكن العمالة"},
+  {id:80, text:"غياب نظام رقابي ذكي لتصنيف المنشآت وفق مستوى الالتزام - مناسب", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"مناسب", category:"الرقابة"},
+  {id:81, text:"عدم وجود آلية تواصل مباشرة مع الإدارة المعنية داخل منصة الأمانة", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"قيد الدراسة", category:"التواصل"},
+  {id:82, text:"غياب نظام لقياس أداء وتصنيف المكاتب الهندسية - دراسة إطلاق نظام تصنيف", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"قيد الدراسة", category:"المكاتب الهندسية"},
+  {id:83, text:"تأخر إصدار الرخص نتيجة تعدد الجهات - منصة موحدة مدة 15 يوماً", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التراخيص"},
+  {id:84, text:"تأخر مراجعة واعتماد المخططات الهندسية - مدة 30 يوماً مع نظام إلكتروني", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"خارج الاختصاص", category:"المخططات"},
+  {id:85, text:"اعتماد طرق ري الحدائق على اجتهادات فردية دون آلية موحدة - دليل موحد", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"قيد الدراسة", category:"التشغيل"},
+  {id:86, text:"محدودية تراخيص سكن العمالة - تم إصدار لائحة جديدة لسكن الأفراد", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"تم التنفيذ", category:"سكن العمالة"},
+  {id:87, text:"تجمعات كبيرة للعمالة في أطراف المدينة دون رقابة - ليس من اختصاص وكالة التنمية", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"خارج الاختصاص", category:"سكن العمالة"},
+  {id:88, text:"غياب نسبة إلزامية للترفيه في مخططات الأراضي - 25% للترفيه والخدمات التجارية", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"قيد الدراسة", category:"التخطيط"},
+  {id:90, text:"انخفاض الوعي بمخاطر القطاعات التجارية - توفير برامج تعليمية موافق", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"الوعي"},
+  {id:91, text:"ارتفاع تكلفة دخول السوق للمنشآت الصغيرة - الغرامات 25% للمنشآت الصغيرة", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق جزئياً", category:"المنشآت الصغيرة"},
+  {id:92, text:"تعدد اللوائح وغياب مشاركة القطاع الخاص - منصة استطلاع للعموم", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"التشريعات"},
+  {id:93, text:"بعض الاشتراطات والمخالفات لا تكون مفهومة - إصدار أدلة إرشادية لكل خدمة", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"الامتثال"},
+  {id:95, text:"تأجير مواقف المجمعات التجارية لشركات فاليه مما يؤثر على الرواد - موافق مع رقابة", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"المواقف"},
+  {id:96, text:"تعدد الجهات المحصلة لرسوم النظافة - غير صحيح الرسوم من المستأجر فقط", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"غير موافق", category:"النظافة"},
+  {id:97, text:"السماح بوضع اللوحات الإرشادية للمراكز الصحية على المباني غير المستقلة", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق", category:"الصحة"},
+  {id:98, text:"احتكار استخراج الشهادات الصحية للعمالة من شركة واحدة - فتح المنافسة موافق", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق", category:"الصحة"},
+  {id:99, text:"تبني نموذج اشتراطات أساسية وثانوية للقطاع التعليمي - موافق", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق", category:"التعليم"},
+  {id:100, text:"عدم مراعاة طبيعة الأنشطة في الرسوم المالية - موافق جزئياً تجزئة الرسوم", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق جزئياً", category:"المالية"},
+  {id:101, text:"غياب تصنيف المكاتب الهندسية - عدم الاختصاص", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"عدم الاختصاص", category:"المكاتب الهندسية"},
+  {id:102, text:"عدم السماح بفتح بوابات متعددة للمدارس لتوزيع الحركة المرورية - موافق جزئياً", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق جزئياً", category:"التعليم"},
+  {id:103, text:"تعامل مراكز التدريب باشتراطات مماثلة للمدارس في النفايات - غير موافق", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"غير موافق", category:"التعليم"},
+  {id:104, text:"إلزام المنشآت التجارية بالزي الموحد - موافق مع مرونة أكثر", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"الامتثال"},
+  {id:105, text:"اشتراط حاويات نظافة لكل محل - المحلات فوق 150م تتعاقد مع شركة نظافة", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"لم يتم", category:"النظافة"},
+  {id:106, text:"مواقف دراجات التوصيل - تحديد مناطق مواقف مخصصة موافق", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"المواقف"},
+  {id:107, text:"تواجه رخص المزارع تحديات في الاشتراطات والتراخيص - عدم الاختصاص", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"عدم الاختصاص", category:"الزراعة"},
+  {id:108, text:"توحيد الغرامات دون مراعاة حجم المنشأة - 25% للمنشآت الصغيرة", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"المخالفات"},
+  {id:109, text:"عدم وضوح رحلة الطلب للمستفيدين - توضيح المراحل موافق", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"الشفافية"},
+  {id:110, text:"عدم توحيد وتصنيف المراكز التجارية وغياب إطار للشاشات الإعلانية - موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التجارة"},
+  {id:111, text:"تفاوت إجراءات التفتيش البلدي وغياب توحيد المتطلبات - دليل موحد موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"الرقابة"},
+  {id:112, text:"غياب مسارات مخصصة للمطورين العقاريين - خارج الاختصاص", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"خارج الاختصاص", category:"العقارات"},
+  {id:113, text:"عدم وضوح التشريعات وضعف التوعية بالتشريعات الجديدة - تعزيز النشر موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التشريعات"},
+  {id:114, text:"عدم وضوح اشتراطات الفنادق والأبراج الفندقية - دليل خاص بالفنادق موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"السياحة"},
+  {id:115, text:"تأخر إصدار الرخص - منصة موحدة مدة 15 يوماً موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التراخيص"},
+  {id:117, text:"ضعف تطبيق إجراءات السلامة في مواقع العمل - مراجعة التشريعات موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"السلامة"},
+  {id:118, text:"رسوم مواقف الرياض على أصحاب المحلات والمراكز الصحية - خارج الاختصاص", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"خارج الاختصاص", category:"المواقف"},
+];
+
+function searchData(query) {
+  const words = query.toLowerCase().replace(/[،,\.]/g,'').split(' ').filter(w => w.length > 1);
+  return PROJECT_DATA.map(entry => {
+    const text = (entry.text + ' ' + entry.source + ' ' + entry.category + ' ' + entry.status).toLowerCase();
+    const score = words.reduce((s, w) => s + (text.includes(w) ? 1 : 0), 0);
+    return { ...entry, score };
+  }).filter(e => e.score > 0).sort((a,b) => b.score - a.score).slice(0, 20);
+}
+
+function newChat() {
+  const conv = { id: Date.now(), title: 'محادثة جديدة', messages: [] };
+  conversations.unshift(conv);
+  currentConv = conv;
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('chatWindow').classList.add('active');
+  document.getElementById('messages').innerHTML = '';
+  renderHistory();
+  document.getElementById('userInput').focus();
+}
+
+function renderHistory() {
+  const el = document.getElementById('chatHistory');
+  if (conversations.length === 0) {
+    el.innerHTML = '<li style="color:var(--text-light); font-size:12px; padding:12px;">لا توجد محادثات سابقة</li>';
+    return;
+  }
+  el.innerHTML = conversations.map(c =>
+    `<li class="${c.id === currentConv?.id ? 'active' : ''}" onclick="switchChat(${c.id})">💬 ${c.title}</li>`
+  ).join('');
+}
+
+function switchChat(id) {
+  currentConv = conversations.find(c => c.id === id);
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('chatWindow').classList.add('active');
+  const msgs = document.getElementById('messages');
+  msgs.innerHTML = '';
+  currentConv.messages.forEach(m => appendMsg(m.role, m.content, false));
+  renderHistory();
+}
+
+function appendMsg(role, content, animate = true) {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = `msg ${role === 'user' ? 'user' : 'assistant'}`;
+  div.innerHTML = `
+    <div class="msg-avatar">${role === 'user' ? '👤' : '🤖'}</div>
+    <div class="msg-bubble">${content.replace(/\n/g,'<br>')}</div>
+  `;
+  if (!animate) div.style.animation = 'none';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addTyping() {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg assistant';
+  div.id = 'typing';
+  div.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  document.getElementById('typing')?.remove();
+}
+
+async function sendMessage() {
+  if (isLoading) return;
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  if (!currentConv) newChat();
+
+  input.value = '';
+  input.style.height = 'auto';
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+
+  appendMsg('user', text);
+  currentConv.messages.push({ role: 'user', content: text });
+
+  if (currentConv.title === 'محادثة جديدة') {
+    currentConv.title = text.slice(0, 30) + (text.length > 30 ? '...' : '');
+    renderHistory();
+  }
+
+  addTyping();
+
+  const relevant = searchData(text);
+  const context = relevant.length > 0
+    ? relevant.map(e => `- ${e.text}\n  المصدر: ${e.source} (${e.year}) | الحالة: ${e.status}`).join('\n')
+    : 'لم يتم العثور على بيانات مطابقة في قاعدة البيانات.';
+
+  const systemPrompt = `أنت مستشار متخصص في برنامج أمانة منطقة الرياض مع القطاع الخاص.
+أجب فقط بناءً على البيانات المقدمة. إذا لم تجد معلومة قل: "هذه المعلومة غير متوفرة في بيانات المشروع، يسعدني مساعدتك في أي سؤال متعلق ببرنامج أمانة منطقة الرياض مع القطاع الخاص."
+تحدث بالعربية دائماً. لا تذكر أرقام السجلات. اذكر المصدر والحالة بشكل مختصر.
+إجمالي البيانات: 429 مدخل من 6 مصادر (2023-2026).`;
+
+  const messages = [
+    ...currentConv.messages.slice(-6).slice(0,-1),
+    { role: 'user', content: `السؤال: ${text}\n\nالبيانات ذات الصلة:\n${context}` }
+  ];
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages, system: systemPrompt })
+    });
+    const data = await res.json();
+    removeTyping();
+    const reply = data.content?.[0]?.text || 'حدث خطأ، حاول مرة أخرى.';
+    appendMsg('assistant', reply);
+    currentConv.messages.push({ role: 'assistant', content: reply });
+  } catch(e) {
+    removeTyping();
+    appendMsg('assistant', 'حدث خطأ في الاتصال، حاول مرة أخرى.');
+  }
+
+  isLoading = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+function askQuick(q) {
+  if (!currentConv) newChat();
+  document.getElementById('userInput').value = q;
+  sendMessage();
+}
+</script>
+</body>
+</html>
