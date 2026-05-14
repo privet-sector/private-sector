@@ -12,10 +12,9 @@ app.post('/api/chat', async (req, res) => {
       'x-api-key': process.env.ANTHROPIC_API_KEY,
       'anthropic-version': '2023-06-01'
     },
-    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, system, messages })
+    body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: 1024, system, messages })
   });
   const data = await r.json();
-  console.log('Anthropic response:', JSON.stringify(data));
   res.json(data);
 });
 
