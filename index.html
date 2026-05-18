@@ -4,751 +4,305 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مستشار برنامج القطاع الخاص - أمانة منطقة الرياض</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green-dark: #0a3d2e;
-    --green-main: #1a6b4a;
-    --green-light: #2d9b6b;
-    --green-pale: #e8f5ef;
-    --gold: #c8a951;
-    --white: #ffffff;
-    --gray-light: #f4f6f5;
-    --gray-mid: #e0e8e4;
-    --text-dark: #0d1f18;
-    --text-mid: #3a5a4a;
-    --text-light: #6b8c7a;
-    --shadow: 0 4px 24px rgba(10,61,46,0.10);
-    --radius: 16px;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Tajawal', sans-serif;
-    background: var(--gray-light);
-    color: var(--text-dark);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Header */
-  .header {
-    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-main) 100%);
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .header-logo {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
-
-  .header-text h1 {
-    color: var(--white);
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  .header-text p {
-    color: rgba(255,255,255,0.75);
-    font-size: 13px;
-    margin-top: 2px;
-  }
-
-  .header-badge {
-    margin-right: auto;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.9);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-  }
-
-  /* Main layout */
-  .main {
-    display: flex;
-    flex: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 24px 16px;
-    gap: 20px;
-  }
-
-  /* Sidebar */
-  .sidebar {
-    width: 260px;
-    flex-shrink: 0;
-  }
-
-  .sidebar-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-
-  .sidebar-title {
-    background: var(--green-pale);
-    padding: 14px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--green-dark);
-    border-bottom: 1px solid var(--gray-mid);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .new-chat-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--green-main), var(--green-light));
-    color: white;
-    border: none;
-    padding: 14px 16px;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(26,107,74,0.3);
-    transition: all 0.2s;
-  }
-
-  .new-chat-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(26,107,74,0.4);
-  }
-
-  .chat-history {
-    list-style: none;
-    padding: 8px;
-  }
-
-  .chat-history li {
-    padding: 10px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text-mid);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.15s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .chat-history li:hover, .chat-history li.active {
-    background: var(--green-pale);
-    color: var(--green-dark);
-  }
-
-  .quick-questions {
-    padding: 8px;
-  }
-
-  .quick-q {
-    width: 100%;
-    background: none;
-    border: 1px solid var(--gray-mid);
-    border-radius: 10px;
-    padding: 10px 12px;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 12px;
-    color: var(--text-mid);
-    cursor: pointer;
-    text-align: right;
-    margin-bottom: 6px;
-    transition: all 0.15s;
-    line-height: 1.4;
-  }
-
-  .quick-q:hover {
-    background: var(--green-pale);
-    border-color: var(--green-light);
-    color: var(--green-dark);
-  }
-
-  /* Chat area */
-  .chat-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  /* Welcome screen */
-  .welcome {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 48px 24px;
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-
-  .welcome-logo {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    margin-bottom: 20px;
-  }
-
-  .welcome h2 {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--green-dark);
-    margin-bottom: 12px;
-  }
-
-  .welcome p {
-    font-size: 15px;
-    color: var(--text-light);
-    max-width: 420px;
-    line-height: 1.7;
-    margin-bottom: 32px;
-  }
-
-  .welcome-divider {
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--green-main), var(--gold));
-    border-radius: 2px;
-    margin: 0 auto 32px;
-  }
-
-  .welcome-stats {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    margin-bottom: 32px;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-num {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--green-main);
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-top: 2px;
-  }
-
-  /* Chat messages */
-  .chat-window {
-    flex: 1;
-    display: none;
-    flex-direction: column;
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
-  .chat-window.active {
-    display: flex;
-  }
-
-  .messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    min-height: 400px;
-  }
-
-  .msg {
-    display: flex;
-    gap: 12px;
-    max-width: 85%;
-    animation: fadeUp 0.3s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .msg.user {
-    align-self: flex-start;
-    flex-direction: row-reverse;
-  }
-
-  .msg.assistant {
-    align-self: flex-end;
-  }
-
-  .msg-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-
-  .msg.user .msg-avatar {
-    background: var(--green-pale);
-    color: var(--green-dark);
-  }
-
-  .msg.assistant .msg-avatar {
-    background: linear-gradient(135deg, var(--green-main), var(--green-light));
-    color: white;
-  }
-
-  .msg-bubble {
-    padding: 14px 18px;
-    border-radius: 16px;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .msg.user .msg-bubble {
-    background: var(--green-pale);
-    color: var(--text-dark);
-    border-top-right-radius: 4px;
-  }
-
-  .msg.assistant .msg-bubble {
-    background: linear-gradient(135deg, var(--green-dark), var(--green-main));
-    color: white;
-    border-top-left-radius: 4px;
-  }
-
-  .msg.assistant .msg-bubble a {
-    color: var(--gold);
-  }
-
-  .typing {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 6px 0;
-  }
-
-  .typing span {
-    width: 8px;
-    height: 8px;
-    background: rgba(255,255,255,0.6);
-    border-radius: 50%;
-    animation: bounce 1s infinite;
-  }
-
-  .typing span:nth-child(2) { animation-delay: 0.15s; }
-  .typing span:nth-child(3) { animation-delay: 0.3s; }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-
-  /* Input area */
-  .input-area {
-    padding: 16px 20px;
-    border-top: 1px solid var(--gray-mid);
-    background: var(--white);
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-  }
-
-  .input-wrapper {
-    flex: 1;
-    background: var(--gray-light);
-    border: 1.5px solid var(--gray-mid);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    padding: 0 14px;
-    transition: border-color 0.2s;
-  }
-
-  .input-wrapper:focus-within {
-    border-color: var(--green-light);
-    background: white;
-  }
-
-  #userInput {
-    flex: 1;
-    background: none;
-    border: none;
-    outline: none;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 14px;
-    color: var(--text-dark);
-    padding: 14px 0;
-    resize: none;
-    min-height: 48px;
-    max-height: 120px;
-  }
-
-  #userInput::placeholder { color: var(--text-light); }
-
-  .send-btn {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--green-main), var(--green-light));
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    transition: all 0.2s;
-    box-shadow: 0 2px 8px rgba(26,107,74,0.3);
-    flex-shrink: 0;
-  }
-
-  .send-btn:hover { transform: scale(1.05); }
-  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .sidebar { display: none; }
-    .main { padding: 12px; }
-    .header { padding: 14px 16px; }
-    .header-logo { width: 48px; height: 48px; }
-    .header-text h1 { font-size: 14px; }
-    .header-badge { display: none; }
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:#f0f4f2;min-height:100vh;display:flex;flex-direction:column}
+.hdr{background:linear-gradient(135deg,#0a3d2e 0%,#1a6b4a 100%);padding:14px 24px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(10,61,46,.3)}
+.hdr-logo{height:52px;width:auto;filter:brightness(0) invert(1)}
+.hdr-text h1{color:#fff;font-size:16px;font-weight:700;line-height:1.3}
+.hdr-text p{color:rgba(255,255,255,.65);font-size:11px;margin-top:2px}
+.badge{margin-right:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);padding:5px 12px;border-radius:20px;font-size:11px;display:flex;align-items:center;gap:5px}
+.badge::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block}
+.main{display:flex;flex:1;max-width:1100px;margin:0 auto;width:100%;padding:18px 14px;gap:16px}
+.sb{width:240px;flex-shrink:0;display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(10,61,46,.07);overflow:hidden}
+.ctitle{background:#eef5f0;padding:10px 14px;font-size:11px;font-weight:700;color:#0a3d2e;border-bottom:1px solid #dce8e1;text-transform:uppercase;letter-spacing:.5px}
+.nbtn{width:100%;background:linear-gradient(135deg,#1a6b4a,#2d9b6b);color:#fff;border:none;padding:12px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border-radius:12px;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.nbtn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,107,74,.3)}
+.hist{list-style:none;padding:6px}
+.hist li{padding:8px 11px;border-radius:8px;cursor:pointer;font-size:12px;color:#3a5a4a;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+.hist li::before{content:'💬';font-size:11px;flex-shrink:0}
+.hist li:hover,.hist li.act{background:#eef5f0;color:#0a3d2e}
+.qqs{padding:6px;display:flex;flex-direction:column;gap:4px}
+.qq{width:100%;background:none;border:1px solid #dce8e1;border-radius:8px;padding:9px 11px;font-family:'Tajawal',sans-serif;font-size:11.5px;color:#3a5a4a;cursor:pointer;text-align:right;transition:.15s;line-height:1.5}
+.qq:hover{background:#eef5f0;border-color:#2d9b6b;color:#0a3d2e}
+.ca{flex:1;display:flex;flex-direction:column;min-width:0}
+.wlc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(10,61,46,.07)}
+.wlc-logo{height:80px;width:auto;margin-bottom:20px;opacity:.9}
+.wlc h2{font-size:21px;font-weight:800;color:#0a3d2e;margin-bottom:8px}
+.wlc-sub{font-size:13.5px;color:#5a7a6a;max-width:380px;line-height:1.8;margin-bottom:24px}
+.div{width:50px;height:3px;background:linear-gradient(90deg,#1a6b4a,#c8a951);border-radius:2px;margin:0 auto 22px}
+.stats{display:flex;gap:24px;justify-content:center;margin-bottom:28px}
+.stat{text-align:center}
+.sn{font-size:28px;font-weight:800;color:#1a6b4a}
+.sl{font-size:11px;color:#6b8c7a;margin-top:3px}
+.cw{flex:1;display:none;flex-direction:column;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(10,61,46,.07);overflow:hidden}
+.cw.act{display:flex}
+.msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;min-height:400px}
+.msg{display:flex;gap:10px;max-width:85%;animation:fu .3s ease}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.u{align-self:flex-start;flex-direction:row-reverse}
+.msg.a{align-self:flex-end}
+.av{width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.msg.u .av{background:#eef5f0}
+.msg.a .av{background:linear-gradient(135deg,#1a6b4a,#2d9b6b);color:#fff;font-size:11px;font-weight:700}
+.bbl{padding:11px 15px;border-radius:12px;font-size:13px;line-height:1.8}
+.msg.u .bbl{background:#eef5f0;color:#0d1f18;border-top-right-radius:4px}
+.msg.a .bbl{background:linear-gradient(135deg,#0a3d2e,#1a6b4a);color:#fff;border-top-left-radius:4px}
+.msg.a .bbl strong{color:#a3d9b8}
+.msg.a .bbl ul,.msg.a .bbl ol{padding-right:18px;margin:6px 0}
+.msg.a .bbl li{margin:3px 0}
+.typ{display:flex;gap:4px;align-items:center;padding:4px 0}
+.typ span{width:7px;height:7px;background:rgba(255,255,255,.6);border-radius:50%;animation:b 1s infinite}
+.typ span:nth-child(2){animation-delay:.15s}.typ span:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.inp{padding:12px 16px;border-top:1px solid #e8eee8;background:#fff;display:flex;gap:8px;align-items:flex-end}
+.inpw{flex:1;background:#f4f8f5;border:1.5px solid #dce8e1;border-radius:10px;display:flex;align-items:center;padding:0 12px;transition:.2s}
+.inpw:focus-within{border-color:#2d9b6b;background:#fff}
+#ui{flex:1;background:none;border:none;outline:none;font-family:'Tajawal',sans-serif;font-size:13px;color:#0d1f18;padding:12px 0;resize:none;min-height:44px;max-height:110px}
+#ui::placeholder{color:#7a9a8a}
+.sbtn{width:44px;height:44px;background:linear-gradient(135deg,#1a6b4a,#2d9b6b);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;transition:.2s;flex-shrink:0}
+.sbtn:hover{transform:scale(1.05)}.sbtn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+@media(max-width:768px){.sb{display:none}.main{padding:8px}}
 </style>
 </head>
 <body>
-
-<header class="header">
-  <img src="logo.png" alt="أمانة الرياض" class="header-logo" onerror="this.style.display='none'">
-  <div class="header-text">
+<header class="hdr">
+  <img class="hdr-logo" src="data:image/jpeg;base64,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" alt="أمانة منطقة الرياض">
+  <div class="hdr-text">
     <h1>مستشار برنامج القطاع الخاص</h1>
     <p>أمانة منطقة الرياض</p>
   </div>
-  <div class="header-badge">🟢 متصل</div>
+  <div class="badge">متصل</div>
 </header>
-
 <main class="main">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <button class="new-chat-btn" onclick="newChat()">+ محادثة جديدة</button>
-
-    <div class="sidebar-card">
-      <div class="sidebar-title">💬 المحادثات</div>
-      <ul class="chat-history" id="chatHistory">
-        <li style="color:var(--text-light); font-size:12px; padding:12px;">لا توجد محادثات سابقة</li>
-      </ul>
+  <aside class="sb">
+    <button class="nbtn" onclick="newChat()">+ محادثة جديدة</button>
+    <div class="card">
+      <div class="ctitle">المحادثات</div>
+      <ul class="hist" id="hist"><li style="color:#7a9a8a;font-size:12px;padding:12px;cursor:default">لا توجد محادثات سابقة</li></ul>
     </div>
-
-    <div class="sidebar-card">
-      <div class="sidebar-title">⚡ أسئلة سريعة</div>
-      <div class="quick-questions">
-        <button class="quick-q" onclick="askQuick('كم عدد التحديات الواردة من القطاع الخاص؟')">كم عدد التحديات الواردة؟</button>
-        <button class="quick-q" onclick="askQuick('ما أبرز تحديات الاستثمار مع الأمانة؟')">أبرز تحديات الاستثمار</button>
-        <button class="quick-q" onclick="askQuick('ما التحديات التي تم تنفيذها؟')">التحديات المنفذة</button>
-        <button class="quick-q" onclick="askQuick('ما التحديات المرفوضة وأسبابها؟')">التحديات المرفوضة</button>
-        <button class="quick-q" onclick="askQuick('ما تحديات التحول الرقمي؟')">تحديات التحول الرقمي</button>
-        <button class="quick-q" onclick="askQuick('ما مقترحات ورشة عمل المقاولين؟')">مقترحات المقاولين</button>
+    <div class="card">
+      <div class="ctitle">⚡ أسئلة سريعة</div>
+      <div class="qqs">
+        <button class="qq" onclick="askQ('كم عدد التحديات الواردة من القطاع الخاص؟')">كم عدد التحديات الواردة من القطاع الخاص؟</button>
+        <button class="qq" onclick="askQ('ما هي ورش العمل التي أُقيمت مع القطاع الخاص؟')">ما هي ورش العمل التي أُقيمت مع القطاع الخاص؟</button>
+        <button class="qq" onclick="askQ('ما هو هدف برنامج القطاع الخاص؟')">ما هو هدف برنامج القطاع الخاص؟</button>
+        <button class="qq" onclick="askQ('معلومات عامة عن لقاء القطاع الخاص الأول')">معلومات عامة عن لقاء القطاع الخاص الأول</button>
       </div>
     </div>
   </aside>
-
-  <!-- Chat -->
-  <section class="chat-area">
-    <!-- Welcome -->
-    <div class="welcome" id="welcomeScreen">
-      <img src="logo.png" alt="أمانة الرياض" class="welcome-logo" onerror="this.style.display='none'">
+  <section class="ca">
+    <div class="wlc" id="ws">
+      <img class="wlc-logo" src="data:image/jpeg;base64,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" alt="أمانة منطقة الرياض">
       <h2>مرحباً بك في مستشار برنامج القطاع الخاص</h2>
-      <div class="welcome-divider"></div>
-      <p>أنا هنا لمساعدتك بكل ما يتعلق ببرنامج أمانة منطقة الرياض مع القطاع الخاص — تحديات، مبادرات، حالات التنفيذ، وورش العمل.</p>
-      <div class="welcome-stats">
-        <div class="stat">
-          <div class="stat-num">429</div>
-          <div class="stat-label">مدخل في قاعدة البيانات</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">6</div>
-          <div class="stat-label">مصادر بيانات</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">2023-2026</div>
-          <div class="stat-label">الفترة الزمنية</div>
-        </div>
+      <div class="div"></div>
+      <p class="wlc-sub">أنا هنا لمساعدتك بكل ما يتعلق ببرنامج أمانة منطقة الرياض مع القطاع الخاص</p>
+      <div class="stats">
+        <div class="stat"><div class="sn">429</div><div class="sl">مدخل في قاعدة البيانات</div></div>
+        <div class="stat"><div class="sn">6</div><div class="sl">مصادر بيانات</div></div>
+        <div class="stat"><div class="sn">2023–2026</div><div class="sl">الفترة الزمنية</div></div>
       </div>
-      <button class="new-chat-btn" style="width:auto; padding: 14px 32px;" onclick="newChat()">ابدأ محادثة جديدة +</button>
+      <button class="nbtn" style="width:auto;padding:12px 28px" onclick="newChat()">ابدأ محادثة جديدة +</button>
     </div>
-
-    <!-- Chat window -->
-    <div class="chat-window" id="chatWindow">
-      <div class="messages" id="messages"></div>
-      <div class="input-area">
-        <div class="input-wrapper">
-          <textarea id="userInput" placeholder="اسأل عن أي تحدٍ أو مبادرة في برنامج القطاع الخاص..." rows="1"
-            onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendMessage(); }"
-            oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px'"></textarea>
+    <div class="cw" id="cw">
+      <div class="msgs" id="msgs"></div>
+      <div class="inp">
+        <div class="inpw">
+          <textarea id="ui" placeholder="اسأل عن أي تحدٍ أو مبادرة..." rows="1"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
         </div>
-        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+        <button class="sbtn" id="sb" onclick="send()">➤</button>
       </div>
     </div>
   </section>
 </main>
-
 <script>
-let conversations = [];
-let currentConv = null;
-let isLoading = false;
-
-// Project data for search
-const PROJECT_DATA = [
-  // CONTRACTORS 2024
-  {id:1, text:"صعوبة تواصل المقاولين مع الأمانة لكثرة الإدارات وعدم وجود ضابط اتصال محدد", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
-  {id:2, text:"ضعف التواصل بين إدارة المشاريع مع الجهات الرقابية في الأمانة", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
-  {id:3, text:"إلزام مقاولي الطرق بفتح سجل نقل منفصل عند امتلاك أكثر من 7 معدات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التراخيص"},
-  {id:4, text:"صعوبة في صرف المستحقات الخاصة بالمقاولين وتأخرها لفترات طويلة", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"المالية"},
-  {id:5, text:"شح الأراضي المناسبة داخل الرياض لدعم مشاريع المقاولين", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"الأراضي"},
-  {id:6, text:"محدودية الوقت في أعمال الصيانة من قبل إدارة المرور", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
-  {id:7, text:"إغلاق مكبات النفايات في فترة الليل وهي الفترة الأهم لنقل المخلفات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
-  {id:8, text:"اشتراط ترخيص منفصل لكل رقعة صيانة مما يثقل الإجراءات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التراخيص"},
-  {id:9, text:"صعوبة التواصل مع الجهات الخدمية كهرباء ومياه واتصالات", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
-  {id:10, text:"إلزام المشاريع الكبيرة بمنطقة تنظيف للمعدات قبل الخروج", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
-  {id:11, text:"تعدد الجهات المصدرة للمخالفات وإيقاف الرخصة أثناء الاعتراض", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"المخالفات"},
-  {id:12, text:"مخالفات مرورية أثناء الصب بسبب عدم كفاية الوقت الممنوح", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"المخالفات"},
-  {id:13, text:"تقييد أوقات سحب المياه الجوفية مما يعيق التنفيذ", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التشغيل"},
-  {id:14, text:"مقترح اجتماع تنفيذي دوري كل 3 أشهر بين الأمانة والمقاولين", source:"ورشة عمل المقاولين", year:2024, status:"-", category:"التواصل"},
-  // ENGINEERING OFFICES 2024
-  {id:15, text:"اشتراط موعد مسبق في كل زيارة لمتابعة الطلبات يُعيق عمل المكاتب الهندسية", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"الإجراءات"},
-  {id:16, text:"غياب آلية رسمية لتوثيق الاستثناءات وتحويلها للوائح وفق الأيزو", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"التنظيم"},
-  {id:17, text:"اللوائح غير متاحة بصورة كاملة على موقع الأمانة الإلكتروني", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"الشفافية"},
-  {id:18, text:"فروقات في إجراءات التقارير المساحية بين منصة بلدي وإجراءات الأمانة", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"الإجراءات"},
-  {id:19, text:"غموض تشريعات الأمانة ومعالجتها بإصدار أدلة تفصيلية لجميع أنواع الرخص", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"التشريعات"},
-  {id:20, text:"عمليات تقديم المخططات لا تزال ورقية ويجب التحول الرقمي الكامل", source:"ورشة عمل المكاتب الهندسية", year:2024, status:"-", category:"التحول الرقمي"},
-  // FIRST MEETING 2023
-  {id:37, text:"الوصول لأنظمة البناء بشكل إلكتروني متاح خدمة إصدار نظام البناء", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"التحول الرقمي"},
-  {id:38, text:"استخدام اللغة العربية فقط لتقديم المخططات والإنجليزية هي لغة البرامج الهندسية", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"الإجراءات"},
-  {id:39, text:"عدم تفعيل الحلول التقنية للاجتماع مع الأمانة عن بعد", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"التواصل"},
-  {id:40, text:"المدة الزمنية طويلة في إجراءات الاشتراطات التخطيطية - تفعيل منصة اعتماد المخططات", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الإجراءات"},
-  {id:41, text:"تأخير الإجراءات والمدة الزمنية لاعتماد مخططات البنية التحتية", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"البنية التحتية"},
-  {id:42, text:"عدم توفر خدمات مصممة للقطاع الخاص من قبل الأمانة عبر تطبيق مدينتي أعمال", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"الخدمات"},
-  {id:43, text:"إتاحة تعديل رقم الجوال المسجل على الموقع الإلكتروني - متاح تعديل بيانات المستفيد", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"التحول الرقمي"},
-  {id:44, text:"عدم وضوح مدة معالجة المعاملة والحالة - متاح حالة الطلب والمرحلة", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الشفافية"},
-  {id:45, text:"غياب تفاصيل فاتورة المخالفة في رسائل SMS - الخدمة متاحة حالياً", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"المخالفات"},
-  {id:46, text:"عدم طرح أراضي كبيرة لمجمعات المخازن - تم طرح 321 فرصة استثمارية", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الاستثمار"},
-  {id:47, text:"عدم وضوح آلية طرح المشاريع الاستثمارية - يتم طرحها ربع سنوي", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الاستثمار"},
-  {id:48, text:"صعوبات القطاع الترفيهي في الحصول على مواقع مناسبة داخل المدينة", source:"غرفة الرياض", year:2025, status:"لم يتم", category:"الترفيه"},
-  {id:49, text:"طرح المنافسات الاستثمارية للنقل - تم البدء بطرح الفرص للقطاع الخاص", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"الاستثمار"},
-  {id:50, text:"تأخر إجراءات الموافقات لإنشاء مشاريع إعادة التدوير", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"البيئة"},
-  {id:51, text:"عدم تمكين المستثمرين من شراء أراضي المرافق التعليمية - يتم التأجير فقط", source:"غرفة الرياض", year:2025, status:"لم يتم", category:"الاستثمار"},
-  {id:52, text:"ضغوط تواجه القطاع الخاص في نموذج الرقابة القائم على المخالفات اجادة", source:"لقاء القطاع الخاص الأول", year:2023, status:"تم التنفيذ", category:"الرقابة"},
-  {id:53, text:"قُصر مدة الاعتراض على المخالفات - مقترح رفعها إلى 30 يوماً", source:"لقاء القطاع الخاص الأول", year:2023, status:"لم يتم", category:"المخالفات"},
-  {id:54, text:"غياب حملات توعوية قبل إصدار المخالفات - تم تنفيذ مبادرات توعوية متعددة", source:"غرفة الرياض", year:2025, status:"تم التنفيذ", category:"الامتثال"},
-  // SPECIALIZED WORKSHOPS 2025
-  {id:76, text:"قلة الوعي قبل طرح الفرص الاستثمارية - الإعلان عبر قنوات التواصل ومنصة فرص", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"جاري العمل", category:"الاستثمار"},
-  {id:77, text:"عدم توفر فرص استثمارية متكاملة جاهزة للتنفيذ وخالية من التعقيدات", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"تم التنفيذ", category:"الاستثمار"},
-  {id:78, text:"غياب نظام وتشريع لإقامة الفعاليات داخل الأحياء السكنية - خارج الاختصاص", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"لم يتم", category:"الفعاليات"},
-  {id:79, text:"محدودية تراخيص سكن العمالة داخل المدينة مما يضطر للسكنات غير النظامية", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"لم يتم", category:"سكن العمالة"},
-  {id:80, text:"غياب نظام رقابي ذكي لتصنيف المنشآت وفق مستوى الالتزام - مناسب", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"مناسب", category:"الرقابة"},
-  {id:81, text:"عدم وجود آلية تواصل مباشرة مع الإدارة المعنية داخل منصة الأمانة", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"قيد الدراسة", category:"التواصل"},
-  {id:82, text:"غياب نظام لقياس أداء وتصنيف المكاتب الهندسية - دراسة إطلاق نظام تصنيف", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"قيد الدراسة", category:"المكاتب الهندسية"},
-  {id:83, text:"تأخر إصدار الرخص نتيجة تعدد الجهات - منصة موحدة مدة 15 يوماً", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التراخيص"},
-  {id:84, text:"تأخر مراجعة واعتماد المخططات الهندسية - مدة 30 يوماً مع نظام إلكتروني", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"خارج الاختصاص", category:"المخططات"},
-  {id:85, text:"اعتماد طرق ري الحدائق على اجتهادات فردية دون آلية موحدة - دليل موحد", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"قيد الدراسة", category:"التشغيل"},
-  {id:86, text:"محدودية تراخيص سكن العمالة - تم إصدار لائحة جديدة لسكن الأفراد", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"تم التنفيذ", category:"سكن العمالة"},
-  {id:87, text:"تجمعات كبيرة للعمالة في أطراف المدينة دون رقابة - ليس من اختصاص وكالة التنمية", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"خارج الاختصاص", category:"سكن العمالة"},
-  {id:88, text:"غياب نسبة إلزامية للترفيه في مخططات الأراضي - 25% للترفيه والخدمات التجارية", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"قيد الدراسة", category:"التخطيط"},
-  {id:90, text:"انخفاض الوعي بمخاطر القطاعات التجارية - توفير برامج تعليمية موافق", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"الوعي"},
-  {id:91, text:"ارتفاع تكلفة دخول السوق للمنشآت الصغيرة - الغرامات 25% للمنشآت الصغيرة", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق جزئياً", category:"المنشآت الصغيرة"},
-  {id:92, text:"تعدد اللوائح وغياب مشاركة القطاع الخاص - منصة استطلاع للعموم", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"التشريعات"},
-  {id:93, text:"بعض الاشتراطات والمخالفات لا تكون مفهومة - إصدار أدلة إرشادية لكل خدمة", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"الامتثال"},
-  {id:95, text:"تأجير مواقف المجمعات التجارية لشركات فاليه مما يؤثر على الرواد - موافق مع رقابة", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"موافق", category:"المواقف"},
-  {id:96, text:"تعدد الجهات المحصلة لرسوم النظافة - غير صحيح الرسوم من المستأجر فقط", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"غير موافق", category:"النظافة"},
-  {id:97, text:"السماح بوضع اللوحات الإرشادية للمراكز الصحية على المباني غير المستقلة", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق", category:"الصحة"},
-  {id:98, text:"احتكار استخراج الشهادات الصحية للعمالة من شركة واحدة - فتح المنافسة موافق", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق", category:"الصحة"},
-  {id:99, text:"تبني نموذج اشتراطات أساسية وثانوية للقطاع التعليمي - موافق", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق", category:"التعليم"},
-  {id:100, text:"عدم مراعاة طبيعة الأنشطة في الرسوم المالية - موافق جزئياً تجزئة الرسوم", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق جزئياً", category:"المالية"},
-  {id:101, text:"غياب تصنيف المكاتب الهندسية - عدم الاختصاص", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"عدم الاختصاص", category:"المكاتب الهندسية"},
-  {id:102, text:"عدم السماح بفتح بوابات متعددة للمدارس لتوزيع الحركة المرورية - موافق جزئياً", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"موافق جزئياً", category:"التعليم"},
-  {id:103, text:"تعامل مراكز التدريب باشتراطات مماثلة للمدارس في النفايات - غير موافق", source:"ورشة عمل التجمع الصحي والتعليمي", year:2025, status:"غير موافق", category:"التعليم"},
-  {id:104, text:"إلزام المنشآت التجارية بالزي الموحد - موافق مع مرونة أكثر", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"الامتثال"},
-  {id:105, text:"اشتراط حاويات نظافة لكل محل - المحلات فوق 150م تتعاقد مع شركة نظافة", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"لم يتم", category:"النظافة"},
-  {id:106, text:"مواقف دراجات التوصيل - تحديد مناطق مواقف مخصصة موافق", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"المواقف"},
-  {id:107, text:"تواجه رخص المزارع تحديات في الاشتراطات والتراخيص - عدم الاختصاص", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"عدم الاختصاص", category:"الزراعة"},
-  {id:108, text:"توحيد الغرامات دون مراعاة حجم المنشأة - 25% للمنشآت الصغيرة", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"المخالفات"},
-  {id:109, text:"عدم وضوح رحلة الطلب للمستفيدين - توضيح المراحل موافق", source:"ورشة عمل التجمع الإنتاجي واللوجستي", year:2025, status:"موافق", category:"الشفافية"},
-  {id:110, text:"عدم توحيد وتصنيف المراكز التجارية وغياب إطار للشاشات الإعلانية - موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التجارة"},
-  {id:111, text:"تفاوت إجراءات التفتيش البلدي وغياب توحيد المتطلبات - دليل موحد موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"الرقابة"},
-  {id:112, text:"غياب مسارات مخصصة للمطورين العقاريين - خارج الاختصاص", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"خارج الاختصاص", category:"العقارات"},
-  {id:113, text:"عدم وضوح التشريعات وضعف التوعية بالتشريعات الجديدة - تعزيز النشر موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التشريعات"},
-  {id:114, text:"عدم وضوح اشتراطات الفنادق والأبراج الفندقية - دليل خاص بالفنادق موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"السياحة"},
-  {id:115, text:"تأخر إصدار الرخص - منصة موحدة مدة 15 يوماً موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"التراخيص"},
-  {id:117, text:"ضعف تطبيق إجراءات السلامة في مواقع العمل - مراجعة التشريعات موافق", source:"ورشة عمل التجمع العقاري والسياحي", year:2025, status:"موافق", category:"السلامة"},
-  {id:118, text:"رسوم مواقف الرياض على أصحاب المحلات والمراكز الصحية - خارج الاختصاص", source:"ورشة عمل التجمع التجاري والاستثماري", year:2025, status:"خارج الاختصاص", category:"المواقف"},
+var convs=[],cur=null,loading=false;
+var D=[
+{t:"صعوبة تواصل المقاولين مع الأمانة لكثرة الإدارات",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التواصل"},
+{t:"ضعف التواصل بين إدارة المشاريع والجهات الرقابية",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التواصل"},
+{t:"إلزام مقاولي الطرق بفتح سجل نقل منفصل عند أكثر من 7 معدات",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التراخيص"},
+{t:"صعوبة صرف المستحقات المالية للمقاولين",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"المالية"},
+{t:"شح الأراضي المناسبة داخل الرياض لمشاريع المقاولين",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"الأراضي"},
+{t:"محدودية وقت أعمال الصيانة من إدارة المرور",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التشغيل"},
+{t:"إغلاق مكبات النفايات ليلاً",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التشغيل"},
+{t:"اشتراط ترخيص منفصل لكل رقعة صيانة",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التراخيص"},
+{t:"صعوبة التواصل مع الجهات الخدمية كهرباء ومياه واتصالات",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التواصل"},
+{t:"تعدد الجهات المصدرة للمخالفات وإيقاف الرخصة أثناء الاعتراض",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"المخالفات"},
+{t:"مقترح اجتماع تنفيذي كل 3 أشهر بين الأمانة والمقاولين",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التواصل"},
+{t:"مقترح تعيين ضابط اتصال موحد بين المقاولين والأمانة",s:"ورشة عمل المقاولين",y:2024,st:"—",c:"التواصل"},
+{t:"اشتراط موعد مسبق في كل زيارة يعيق المكاتب الهندسية",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"الإجراءات"},
+{t:"غياب آلية توثيق الاستثناءات ضمن لوائح الأيزو",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التشريعات"},
+{t:"اللوائح غير متاحة كاملة على موقع الأمانة",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"متاح جزئياً",c:"الشفافية"},
+{t:"فروقات بين منصة بلدي وإجراءات الأمانة في التقارير المساحية",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"الإجراءات"},
+{t:"غموض تشريعات الأمانة - مطلوب أدلة تفصيلية",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التشريعات"},
+{t:"عمليات تقديم المخططات ورقية - مطلوب اتمتة كاملة",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التحول الرقمي"},
+{t:"ثغرات في اللوائح تتيح التحايل مثل اشتراطات المواقف",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التشريعات"},
+{t:"مقترح تفعيل خط تواصل مباشر مع المكاتب الهندسية",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التواصل"},
+{t:"مقترح لقاءات دورية بين الأمانة والمكاتب الهندسية",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التواصل"},
+{t:"مقترح تطوير نظام ذكاء اصطناعي لقراءة مخططات الأوتوكاد",s:"ورشة عمل المكاتب الهندسية",y:2024,st:"—",c:"التحول الرقمي"},
+{t:"الوصول لأنظمة البناء إلكترونياً",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"التحول الرقمي"},
+{t:"استخدام اللغة العربية فقط في المخططات",s:"لقاء القطاع الخاص الأول",y:2023,st:"لم يتم",c:"الإجراءات"},
+{t:"عدم تفعيل الاجتماعات عن بعد",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"التواصل"},
+{t:"طول المدة في الاشتراطات التخطيطية - تم تفعيل منصة اعتماد المخططات",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الإجراءات"},
+{t:"تأخير اعتماد مخططات البنية التحتية",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الإجراءات"},
+{t:"عدم توفر خدمات للقطاع الخاص عبر تطبيق مدينتي أعمال",s:"لقاء القطاع الخاص الأول",y:2023,st:"لم يتم",c:"التحول الرقمي"},
+{t:"عدم وضوح مدة معالجة المعاملة - متاح حالة الطلب",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الشفافية"},
+{t:"غياب تفاصيل فاتورة المخالفة في رسائل SMS",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"المخالفات"},
+{t:"عدم طرح أراضي لمجمعات مخازن - 321 فرصة استثمارية",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الاستثمار"},
+{t:"عدم وضوح آلية طرح المشاريع الاستثمارية - طرح ربع سنوي",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الاستثمار"},
+{t:"صعوبات القطاع الترفيهي في الحصول على مواقع",s:"لقاء القطاع الخاص الأول",y:2023,st:"لم يتم",c:"الترفيه"},
+{t:"قُصر مدة الاعتراض على المخالفات - مقترح رفع لـ 30 يوماً",s:"لقاء القطاع الخاص الأول",y:2023,st:"لم يتم",c:"المخالفات"},
+{t:"غياب حملات توعوية قبل المخالفات",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الامتثال"},
+{t:"صعوبة توفير عدد المواقف 54% من مساحة الأرض",s:"لقاء القطاع الخاص الأول",y:2023,st:"لم يتم",c:"التراخيص"},
+{t:"طول مدة إجراءات تراخيص التعليم",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"التراخيص"},
+{t:"تحديات الحصول على تراخيص المحاور الرئيسية",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"التراخيص"},
+{t:"طول مدة إصدار القرارات المساحية",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"الإجراءات"},
+{t:"تأخير إصدار الرخص المهنية وربطها بالعقود",s:"لقاء القطاع الخاص الأول",y:2023,st:"لم يتم",c:"التراخيص"},
+{t:"تحديات الحركة اللوجستية في الرياض",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"اللوجستيات"},
+{t:"غياب نظام واضح لاشتراطات اللوحات الإعلانية",s:"لقاء القطاع الخاص الأول",y:2023,st:"تم التنفيذ",c:"التشريعات"},
+{t:"احتضان ريادة الأعمال والأفكار الجديدة",s:"لقاء القطاع الخاص الأول",y:2023,st:"جاري العمل",c:"الاستثمار"},
+{t:"قلة الوعي قبل طرح الفرص الاستثمارية",s:"غرفة الرياض",y:2025,st:"جاري العمل",c:"الاستثمار"},
+{t:"غياب فرص استثمارية متكاملة جاهزة للتنفيذ",s:"غرفة الرياض",y:2025,st:"تم التنفيذ",c:"الاستثمار"},
+{t:"غياب نظام لتنظيم الفعاليات داخل الأحياء",s:"غرفة الرياض",y:2025,st:"لم يتم",c:"التشغيل"},
+{t:"محدودية تراخيص سكن العمالة داخل المدينة",s:"غرفة الرياض",y:2025,st:"لم يتم",c:"سكن العمالة"},
+{t:"غياب نظام رقابي ذكي لتصنيف المنشآت",s:"غرفة الرياض",y:2025,st:"مناسب",c:"الرقابة"},
+{t:"غياب آلية تواصل مع الأمانة من المنصة",s:"غرفة الرياض",y:2025,st:"قيد الدراسة",c:"التواصل"},
+{t:"غياب نظام تصنيف المكاتب الهندسية",s:"غرفة الرياض",y:2025,st:"قيد الدراسة",c:"التشريعات"},
+{t:"تأخر إصدار الرخص - منصة موحدة 15 يوماً",s:"غرفة الرياض",y:2025,st:"موافق",c:"التراخيص"},
+{t:"تأخر اعتماد المخططات - 30 يوماً",s:"غرفة الرياض",y:2025,st:"خارج الاختصاص",c:"الإجراءات"},
+{t:"غياب آلية موحدة لري الحدائق",s:"غرفة الرياض",y:2025,st:"قيد الدراسة",c:"التشغيل"},
+{t:"محدودية تراخيص سكن العمالة - تم إصدار لائحة جديدة",s:"غرفة الرياض",y:2025,st:"تم التنفيذ",c:"سكن العمالة"},
+{t:"غياب نسبة إلزامية للترفيه في المخططات - 25% للترفيه والخدمات",s:"غرفة الرياض",y:2025,st:"موافق",c:"التخطيط"},
+{t:"انخفاض الوعي بمخاطر القطاعات التجارية - برامج تعليمية",s:"ورشة عمل التجمع التجاري والاستثماري",y:2025,st:"موافق",c:"الوعي"},
+{t:"ارتفاع تكلفة دخول السوق للمنشآت الصغيرة - 25% للغرامات",s:"ورشة عمل التجمع التجاري والاستثماري",y:2025,st:"موافق جزئياً",c:"المنشآت الصغيرة"},
+{t:"تعدد اللوائح وغياب مشاركة القطاع الخاص - منصة استطلاع",s:"ورشة عمل التجمع التجاري والاستثماري",y:2025,st:"موافق",c:"التشريعات"},
+{t:"الاشتراطات غير مفهومة للقطاع الخاص - أدلة إرشادية",s:"ورشة عمل التجمع التجاري والاستثماري",y:2025,st:"موافق",c:"الامتثال"},
+{t:"تأجير مواقف المجمعات لشركات فاليه - رقابة مكثفة",s:"ورشة عمل التجمع التجاري والاستثماري",y:2025,st:"موافق",c:"المواقف"},
+{t:"اشتراطات اللوحات الإرشادية للمباني الغير مستقلة",s:"ورشة عمل التجمع التجاري والاستثماري",y:2025,st:"موافق",c:"التشريعات"},
+{t:"احتكار الشهادات الصحية من شركة واحدة - فتح المنافسة",s:"ورشة عمل التجمع الصحي والتعليمي",y:2025,st:"موافق",c:"الصحة"},
+{t:"نموذج اشتراطات للقطاع التعليمي",s:"ورشة عمل التجمع الصحي والتعليمي",y:2025,st:"موافق",c:"التعليم"},
+{t:"الرسوم المالية وفترات التجديد",s:"ورشة عمل التجمع الصحي والتعليمي",y:2025,st:"موافق جزئياً",c:"المالية"},
+{t:"عدم السماح ببوابات متعددة للمدارس",s:"ورشة عمل التجمع الصحي والتعليمي",y:2025,st:"موافق جزئياً",c:"التعليم"},
+{t:"تعامل مراكز التدريب كالمدارس",s:"ورشة عمل التجمع الصحي والتعليمي",y:2025,st:"غير موافق",c:"التعليم"},
+{t:"إلزامية الزي الموحد - موافق مع مرونة أكثر",s:"ورشة عمل التجمع الإنتاجي واللوجستي",y:2025,st:"موافق",c:"الامتثال"},
+{t:"توحيد الغرامات دون مراعاة حجم المنشأة - 25% للمنشآت الصغيرة",s:"ورشة عمل التجمع الإنتاجي واللوجستي",y:2025,st:"موافق",c:"المخالفات"},
+{t:"عدم وضوح رحلة الطلب للمستفيدين",s:"ورشة عمل التجمع الإنتاجي واللوجستي",y:2025,st:"موافق",c:"الشفافية"},
+{t:"مواقف دراجات التوصيل",s:"ورشة عمل التجمع الإنتاجي واللوجستي",y:2025,st:"موافق",c:"المواقف"},
+{t:"عدم وضوح اشتراطات الفنادق والأبراج الفندقية - دليل خاص",s:"ورشة عمل التجمع العقاري والسياحي",y:2025,st:"موافق",c:"السياحة"},
+{t:"تأخر إصدار الرخص - منصة موحدة 15 يوماً",s:"ورشة عمل التجمع العقاري والسياحي",y:2025,st:"موافق",c:"التراخيص"},
+{t:"ضعف تطبيق إجراءات السلامة في مواقع العمل",s:"ورشة عمل التجمع العقاري والسياحي",y:2025,st:"موافق",c:"السلامة"},
+{t:"تفاوت إجراءات التفتيش البلدي - قوائم تفحص موحدة",s:"ورشة عمل التجمع العقاري والسياحي",y:2025,st:"موافق",c:"الرقابة"},
+{t:"عدم وضوح التشريعات وضعف التوعية بها",s:"ورشة عمل التجمع العقاري والسياحي",y:2025,st:"موافق",c:"التشريعات"},
+{t:"غياب تصنيف المراكز التجارية - إطار تنظيمي موحد",s:"ورشة عمل التجمع العقاري والسياحي",y:2025,st:"موافق",c:"التجارة"},
 ];
 
-function searchData(query) {
-  const words = query.toLowerCase().replace(/[،,\.]/g,'').split(' ').filter(w => w.length > 1);
-  return PROJECT_DATA.map(entry => {
-    const text = (entry.text + ' ' + entry.source + ' ' + entry.category + ' ' + entry.status).toLowerCase();
-    const score = words.reduce((s, w) => s + (text.includes(w) ? 1 : 0), 0);
-    return { ...entry, score };
-  }).filter(e => e.score > 0).sort((a,b) => b.score - a.score).slice(0, 20);
+var PROGRAM_INFO = {
+  name: "برنامج القطاع الخاص",
+  entity: "أمانة منطقة الرياض",
+  goal: "تعزيز الشراكة بين أمانة منطقة الرياض والقطاع الخاص من خلال الاستماع لتحديات المستثمرين والمنشآت التجارية ومعالجتها، وتحسين بيئة الأعمال، وتبسيط الإجراءات، وتطوير الخدمات المقدمة.",
+  workshops: [
+    {name:"لقاء القطاع الخاص الأول", year:2023, count:25, desc:"أول لقاء رسمي جمع الأمانة بممثلي القطاع الخاص لمناقشة التحديات وآليات التعاون"},
+    {name:"ورشة عمل المقاولين", year:2024, count:14, desc:"ورشة متخصصة بقطاع المقاولات لمناقشة تحديات التراخيص والتواصل والتشغيل"},
+    {name:"ورشة عمل المكاتب الهندسية", year:2024, count:22, desc:"ورشة مخصصة للمكاتب الهندسية لمناقشة إجراءات المخططات والاشتراطات التقنية"},
+    {name:"غرفة الرياض", year:2025, count:14, desc:"لقاء مع غرفة الرياض لمناقشة القضايا الاستثمارية والتنموية"},
+    {name:"ورشة عمل التجمعات التجارية", year:2025, count:43, desc:"ورشة شاملة تضمنت التجمع التجاري والصحي والتعليمي والإنتاجي والعقاري"},
+    {name:"قناة التواصل", year:"2023-2026", count:311, desc:"قناة مستمرة لاستقبال مقترحات وتحديات القطاع الخاص"},
+  ],
+  total: 429
+};
+
+function srch(q){
+  var ws=q.toLowerCase().replace(/[،,.؟?]/g,'').split(' ').filter(function(w){return w.length>1;});
+  return D.map(function(e){
+    var t=(e.t+' '+e.s+' '+e.c+' '+e.st).toLowerCase();
+    return Object.assign({},e,{score:ws.reduce(function(s,w){return s+(t.indexOf(w)>=0?1:0);},0)});
+  }).filter(function(e){return e.score>0;}).sort(function(a,b){return b.score-a.score;}).slice(0,25);
 }
 
-function newChat() {
-  const conv = { id: Date.now(), title: 'محادثة جديدة', messages: [] };
-  conversations.unshift(conv);
-  currentConv = conv;
-  document.getElementById('welcomeScreen').style.display = 'none';
-  document.getElementById('chatWindow').classList.add('active');
-  document.getElementById('messages').innerHTML = '';
-  renderHistory();
-  document.getElementById('userInput').focus();
+function newChat(){
+  var conv={id:Date.now(),title:'محادثة جديدة',messages:[]};
+  convs.unshift(conv);cur=conv;
+  document.getElementById('ws').style.display='none';
+  document.getElementById('cw').classList.add('act');
+  document.getElementById('msgs').innerHTML='';
+  renderH();
+  document.getElementById('ui').focus();
 }
 
-function renderHistory() {
-  const el = document.getElementById('chatHistory');
-  if (conversations.length === 0) {
-    el.innerHTML = '<li style="color:var(--text-light); font-size:12px; padding:12px;">لا توجد محادثات سابقة</li>';
-    return;
-  }
-  el.innerHTML = conversations.map(c =>
-    `<li class="${c.id === currentConv?.id ? 'active' : ''}" onclick="switchChat(${c.id})">💬 ${c.title}</li>`
-  ).join('');
+function renderH(){
+  var el=document.getElementById('hist');
+  if(!convs.length){el.innerHTML='<li style="color:#7a9a8a;font-size:12px;padding:12px;cursor:default">لا توجد محادثات سابقة</li>';return;}
+  el.innerHTML=convs.map(function(c){return '<li class="'+(c.id===cur.id?'act':'')+'" onclick="swch('+c.id+')">'+c.title+'</li>';}).join('');
 }
 
-function switchChat(id) {
-  currentConv = conversations.find(c => c.id === id);
-  document.getElementById('welcomeScreen').style.display = 'none';
-  document.getElementById('chatWindow').classList.add('active');
-  const msgs = document.getElementById('messages');
-  msgs.innerHTML = '';
-  currentConv.messages.forEach(m => appendMsg(m.role, m.content, false));
-  renderHistory();
+function swch(id){
+  cur=convs.find(function(c){return c.id===id;});
+  document.getElementById('ws').style.display='none';
+  document.getElementById('cw').classList.add('act');
+  document.getElementById('msgs').innerHTML='';
+  cur.messages.forEach(function(m){addMsg(m.role,m.content,false);});
+  renderH();
 }
 
-function appendMsg(role, content, animate = true) {
-  const msgs = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = `msg ${role === 'user' ? 'user' : 'assistant'}`;
-  div.innerHTML = `
-    <div class="msg-avatar">${role === 'user' ? '👤' : '🤖'}</div>
-    <div class="msg-bubble">${content.replace(/\n/g,'<br>')}</div>
-  `;
-  if (!animate) div.style.animation = 'none';
+function addMsg(role,content,animate){
+  if(animate===undefined)animate=true;
+  var msgs=document.getElementById('msgs');
+  var div=document.createElement('div');
+  div.className='msg '+(role==='user'?'u':'a');
+  var av=role==='user'?'👤':'أم';
+  div.innerHTML='<div class="av">'+av+'</div><div class="bbl">'+content.replace(/\n/g,'<br>')+'</div>';
+  if(!animate)div.style.animation='none';
   msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
+  msgs.scrollTop=msgs.scrollHeight;
 }
 
-function addTyping() {
-  const msgs = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = 'msg assistant';
-  div.id = 'typing';
-  div.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
+function addTyp(){
+  var msgs=document.getElementById('msgs');
+  var div=document.createElement('div');
+  div.className='msg a';div.id='typ';
+  div.innerHTML='<div class="av">أم</div><div class="bbl"><div class="typ"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
 }
 
-function removeTyping() {
-  document.getElementById('typing')?.remove();
-}
-
-async function sendMessage() {
-  if (isLoading) return;
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text) return;
-
-  if (!currentConv) newChat();
-
-  input.value = '';
-  input.style.height = 'auto';
-  isLoading = true;
-  document.getElementById('sendBtn').disabled = true;
-
-  appendMsg('user', text);
-  currentConv.messages.push({ role: 'user', content: text });
-
-  if (currentConv.title === 'محادثة جديدة') {
-    currentConv.title = text.slice(0, 30) + (text.length > 30 ? '...' : '');
-    renderHistory();
+async function send(){
+  if(loading)return;
+  var input=document.getElementById('ui');
+  var text=input.value.trim();
+  if(!text)return;
+  if(!cur)newChat();
+  input.value='';input.style.height='auto';
+  loading=true;document.getElementById('sb').disabled=true;
+  addMsg('user',text);
+  cur.messages.push({role:'user',content:text});
+  if(cur.title==='محادثة جديدة'){cur.title=text.slice(0,30)+(text.length>30?'..':'');renderH();}
+  addTyp();
+  var rel=srch(text);
+  var ctx='';
+  if(rel.length>0){
+    ctx='البيانات ذات الصلة:\n'+rel.map(function(e){return '- '+e.t+' ('+e.s+' '+e.y+') | الحالة: '+e.st;}).join('\n');
   }
-
-  addTyping();
-
-  const relevant = searchData(text);
-  const context = relevant.length > 0
-    ? relevant.map(e => `- ${e.text}\n  المصدر: ${e.source} (${e.year}) | الحالة: ${e.status}`).join('\n')
-    : 'لم يتم العثور على بيانات مطابقة في قاعدة البيانات.';
-
-  const systemPrompt = `أنت مستشار متخصص في برنامج أمانة منطقة الرياض مع القطاع الخاص.
-أجب فقط بناءً على البيانات المقدمة. إذا لم تجد معلومة قل: "هذه المعلومة غير متوفرة في بيانات المشروع، يسعدني مساعدتك في أي سؤال متعلق ببرنامج أمانة منطقة الرياض مع القطاع الخاص."
-تحدث بالعربية دائماً. لا تذكر أرقام السجلات. اذكر المصدر والحالة بشكل مختصر.
-إجمالي البيانات: 429 مدخل من 6 مصادر (2023-2026).`;
-
-  const messages = [
-    ...currentConv.messages.slice(-6).slice(0,-1),
-    { role: 'user', content: `السؤال: ${text}\n\nالبيانات ذات الصلة:\n${context}` }
-  ];
-
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages, system: systemPrompt })
-    });
-    const data = await res.json();
-    removeTyping();
-    const reply = data.content?.[0]?.text || 'حدث خطأ، حاول مرة أخرى.';
-    appendMsg('assistant', reply);
-    currentConv.messages.push({ role: 'assistant', content: reply });
-  } catch(e) {
-    removeTyping();
-    appendMsg('assistant', 'حدث خطأ في الاتصال، حاول مرة أخرى.');
+  var progCtx=JSON.stringify(PROGRAM_INFO);
+  var sys='أنت مستشار متخصص في برنامج أمانة منطقة الرياض مع القطاع الخاص. تجاوب بشكل مناسب للسؤال - نقاط إذا كانت قائمة، فقرة إذا كان سؤالاً عاماً، جدول إذا كانت مقارنة. لا تذكر أبداً "المصدر:" أو "ملاحظة:" أو استخدم ## في بداية الجواب. تحدث بالعربية فقط. إجمالي البيانات: 429 مدخل من 6 مصادر 2023-2026. معلومات البرنامج: '+progCtx+'. إذا لم تجد معلومة قل: هذه المعلومة غير متوفرة في بيانات المشروع.';
+  var msgs=cur.messages.slice(-6).slice(0,-1).concat([{role:'user',content:'السؤال: '+text+(ctx?'\n\n'+ctx:'')}]);
+  try{
+    var res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs,system:sys})});
+    var data=await res.json();
+    var t=document.getElementById('typ');if(t)t.remove();
+    var reply=data.content&&data.content[0]?data.content[0].text:'حدث خطأ.';
+    addMsg('assistant',reply);
+    cur.messages.push({role:'assistant',content:reply});
+  }catch(e){
+    var t=document.getElementById('typ');if(t)t.remove();
+    addMsg('assistant','حدث خطأ في الاتصال، حاول مرة أخرى.');
   }
-
-  isLoading = false;
-  document.getElementById('sendBtn').disabled = false;
+  loading=false;document.getElementById('sb').disabled=false;
 }
 
-function askQuick(q) {
-  if (!currentConv) newChat();
-  document.getElementById('userInput').value = q;
-  sendMessage();
-}
+function askQ(q){if(!cur)newChat();document.getElementById('ui').value=q;send();}
 </script>
 </body>
 </html>
