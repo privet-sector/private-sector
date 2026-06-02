@@ -271,7 +271,11 @@ async function send(){
     var t=document.getElementById('typ');if(t)t.remove();
     var reply=data.content&&data.content[0]&&data.content[0].text
       ?data.content[0].text
-      :'حدث خطأ في الاتصال، حاول مرة أخرى.';
+      :(() => {
+      // Show actual error if available
+      if(data && data.content && data.content[0]) return data.content[0].text;
+      return 'حدث خطأ في الاتصال، حاول مرة أخرى.';
+    })();
     addMsg('assistant',reply);cur.messages.push({role:'assistant',content:reply});
   }catch(e){
     var t=document.getElementById('typ');if(t)t.remove();
