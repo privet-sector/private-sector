@@ -600,17 +600,23 @@ app.post('/api/chat', async (req, res) => {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({ 
-        model: 'claude-sonnet-4-5', 
+        model: 'claude-sonnet-4-6', 
         max_tokens: 1500, 
         system: SYSTEM_PROMPT,
         messages 
       })
     });
     const data = await r.json();
+    // If API returned an error, log it
+    if (data.error) {
+      console.error('Anthropic API Error:', JSON.stringify(data.error));
+    }
     res.json(data);
   } catch (error) {
-    console.error('API Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error('Server Error:', error.message);
+    res.status(500).json({ 
+      content: [{ type: 'text', text: 'حدث خطأ في الاتصال بالخادم. تأكد من صحة مفتاح API.' }]
+    });
   }
 });
 
