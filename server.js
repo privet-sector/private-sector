@@ -6,10 +6,6 @@ app.use(express.json({limit: '10mb'}));
 app.post('/api/chat', async (req, res) => {
   try {
     const { messages, system } = req.body;
-    
-    if (!process.env.ANTHROPIC_API_KEY) {
-      return res.json({ content: [{ type: 'text', text: 'خطأ: مفتاح API غير موجود في Vercel' }] });
-    }
 
     const r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -27,15 +23,17 @@ app.post('/api/chat', async (req, res) => {
     });
 
     const data = await r.json();
-    
-    // لو رجع خطأ من Anthropic، أرسله كرسالة واضحة
+
     if (data.error) {
-      return res.json({ content: [{ type: 'text', text: 'خطأ API: ' + data.error.message + ' | النوع: ' + data.error.type }] });
+      const msg = data.error.type === 'rate_limit_error'
+        ? 'الطلبات كثيرة — انتظر دقيقة ثم حاول مجدداً.'
+        : 'خطأ: ' + data.error.message;
+      return res.json({ content: [{ type: 'text', text: msg }] });
     }
 
     res.json(data);
   } catch (e) {
-    res.json({ content: [{ type: 'text', text: 'خطأ في السيرفر: ' + e.message }] });
+    res.json({ content: [{ type: 'text', text: 'حدث خطأ في الاتصال.' }] });
   }
 });
 
